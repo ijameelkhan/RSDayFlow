@@ -202,6 +202,16 @@
  */
 - (void)datePickerView:(RSDFDatePickerView *)view didSelectDate:(NSDate *)date;
 
+/**
+ Tells the delegate that the date picker view was scrolled.
+ 
+ The date picker view calls this method when the user scrolls the date picker view
+ 
+ @param view The view whose date was selected.
+ @param monthName The name of the visible month.
+ */
+- (void)datePickerView:(RSDFDatePickerView *)view didScrollToMonth:(NSString *) monthName;
+
 @end
 
 /**

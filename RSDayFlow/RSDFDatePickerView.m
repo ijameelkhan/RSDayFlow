@@ -109,7 +109,7 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
     self.collectionView.frame = [self collectionViewFrame];
     if (!self.collectionView.superview) {
         [self addSubview:self.collectionView];
-        [self scrollToToday:NO];
+        [self scrollToToday:YES];
     } else {
         [self.collectionViewLayout invalidateLayout];
         [self.collectionViewLayout prepareLayout];
@@ -594,6 +594,28 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
     }
 }
 
+- (NSString *)nameOfMonthForSection:(NSInteger)section
+{
+    NSDateComponents *offset = [NSDateComponents new];
+    offset.month = section;
+    
+    
+    NSString *dateFormatterName = [NSString stringWithFormat:@"calendarMonthHeader_%@_%@", [self.calendar calendarIdentifier], [[self.calendar locale] localeIdentifier]];
+    NSDateFormatter *dateFormatter = [self.calendar df_dateFormatterNamed:dateFormatterName withConstructor:^{
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setCalendar:self.calendar];
+        [dateFormatter setLocale:[self.calendar locale]];
+        return dateFormatter;
+    }];
+    
+    NSDate *formattedDate = [self dateForFirstDayInSection:section];
+    RSDFDatePickerDate date = [self pickerDateFromDate:formattedDate];
+    
+    NSString *monthString = [dateFormatter shortStandaloneMonthSymbols][date.month - 1];
+    NSLog(@"1: %@", monthString);
+    return monthString;
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -780,6 +802,25 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
     
     if (pickerCollectionView.contentOffset.y > (pickerCollectionView.contentSize.height - CGRectGetHeight(pickerCollectionView.bounds))) {
         [self appendFutureDates];
+    }
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    //Update Content of the Overlay View
+    NSArray *indexPaths = [self.collectionView indexPathsForVisibleItems];
+    //sort indexPaths to get visible month that is on top
+    NSArray *sortedIndexPaths = [indexPaths sortedArrayUsingSelector:@selector(compare:)];
+    NSIndexPath *topMonthIndexPath = [sortedIndexPaths firstObject];
+    
+    
+    
+    if ([self.delegate respondsToSelector:@selector(datePickerView:didScrollToMonth:)]) {
+        NSString *topMonthName = [self nameOfMonthForSection:topMonthIndexPath.section];
+        
+        [self.delegate datePickerView:self didScrollToMonth:topMonthName];
     }
 }
 
