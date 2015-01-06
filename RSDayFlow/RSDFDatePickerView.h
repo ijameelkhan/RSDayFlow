@@ -241,6 +241,6 @@
  
  @return YES if all tasks on the date are completed or NO if they are not completed.
  */
-- (BOOL)datePickerView:(RSDFDatePickerView *)view isCompletedAllTasksOnDate:(NSDate *)date;
+- (int)datePickerView:(RSDFDatePickerView *)view isCompletedAllTasksOnDate:(NSDate *)date;
 
 @end

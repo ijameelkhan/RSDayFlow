@@ -92,4 +92,16 @@
     return [UIColor clearColor];
 }
 
+- (UIColor *)incompleteMarkImageColor {
+    return [UIColor colorWithRed:0 green:0.83 blue:0.46 alpha:1];
+}
+
+- (UIColor *)intermediateMarkImageColor
+{
+    return [UIColor colorWithRed:0.85 green:0.32 blue:0.12 alpha:1];
+}
+
+- (UIColor *)completeMarkImageColor {
+    return [UIColor colorWithRed:0.92 green:0.9 blue:0.88 alpha:1];
+}
 @end

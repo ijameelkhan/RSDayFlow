@@ -69,7 +69,8 @@
     NSDate *today = [self.calendar dateFromComponents:todayComponents];
     [self.datePickerView selectDate:today];
     
-    self.customDatePickerView.hidden = YES;
+    self.datePickerView.hidden = YES;
+    self.customDatePickerView.hidden = NO;
     
     [self.view addSubview:self.customDatePickerView];
     [self.view addSubview:self.datePickerView];
@@ -115,11 +116,8 @@
         
         NSMutableDictionary *statesOfTasks = [[NSMutableDictionary alloc] initWithCapacity:[self.datesToMark count]];
         [self.datesToMark enumerateObjectsUsingBlock:^(NSDate *date, NSUInteger idx, BOOL *stop) {
-            BOOL isCompletedAllTasks = NO;
-            if ([date compare:today] == NSOrderedAscending) {
-                isCompletedAllTasks = YES;
-            }
-            statesOfTasks[date] = @(isCompletedAllTasks);
+            NSInteger randomNumber = arc4random() % 3; //random number between 0-2, this represent state of tasks
+            statesOfTasks[date] = @(randomNumber);
         }];
         
         _statesOfTasks = [statesOfTasks copy];
@@ -191,6 +189,10 @@
     [[[UIAlertView alloc] initWithTitle:@"Picked Date" message:[self.dateFormatter stringFromDate:date] delegate:nil cancelButtonTitle:@":D" otherButtonTitles:nil] show];
 }
 
+- (void)datePickerView:(RSDFDatePickerView *)view didScrollToMonth:(NSString *)monthName {
+    NSLog(@"MONTH NAME = %@", monthName);
+}
+
 #pragma mark - RSDFDatePickerViewDataSource
 
 - (BOOL)datePickerView:(RSDFDatePickerView *)view shouldMarkDate:(NSDate *)date
@@ -198,9 +200,10 @@
     return [self.datesToMark containsObject:date];
 }
 
-- (BOOL)datePickerView:(RSDFDatePickerView *)view isCompletedAllTasksOnDate:(NSDate *)date
+- (int)datePickerView:(RSDFDatePickerView *)view isCompletedAllTasksOnDate:(NSDate *)date
 {
-	return [self.statesOfTasks[date] boolValue];
+    NSLog(@"self.statesOfTasks = %@", self.statesOfTasks[date]);
+	return [self.statesOfTasks[date] intValue];
 }
 
 @end

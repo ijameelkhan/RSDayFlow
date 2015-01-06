@@ -204,9 +204,13 @@
             }
         }
         
-        if (!self.isCompleted) {
+        if (self.taskState == 0) {
             self.markImageView.image = [self incompleteMarkImage];
-        } else {
+        }
+        else if (self.taskState == 1) {
+            self.markImageView.image = [self intermediateMarkImage];
+        }
+        else if (self.taskState == 2) {
             self.markImageView.image = [self completeMarkImage];
         }
     }
@@ -410,6 +414,27 @@
         incompleteMarkImage = [self ellipseImageWithKey:incompleteMarkImageKey frame:self.markImageView.frame color:incompleteMarkImageColor];
     }
     return incompleteMarkImage;
+}
+
+- (UIColor *)intermediateMarkImageColor
+{
+    return [UIColor colorWithRed:83/255.0f green:215/255.0f blue:105/255.0f alpha:1.0f];
+}
+
+- (UIImage *)customIntermediateMarkImage
+{
+    return nil;
+}
+
+- (UIImage *)intermediateMarkImage
+{
+    UIImage *intermediateMarkImage = [self customIntermediateMarkImage];
+    if (!intermediateMarkImage) {
+        UIColor *intermediateMarkImageColor = [self intermediateMarkImageColor];
+        NSString *intermediateMarkImageKey = [NSString stringWithFormat:@"img_mark_%@", [intermediateMarkImageColor description]];
+        intermediateMarkImage = [self ellipseImageWithKey:intermediateMarkImageKey frame:self.markImageView.frame color:intermediateMarkImageColor];
+    }
+    return intermediateMarkImage;
 }
 
 - (UIColor *)completeMarkImageColor

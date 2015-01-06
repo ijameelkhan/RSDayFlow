@@ -74,7 +74,7 @@
 /**
  A Boolean value that determines whether all tasks for the cell's day are completed.
  */
-@property (nonatomic, getter = isCompleted) BOOL completed;
+@property (nonatomic, getter = isTaskState) int taskState;
 
 ///---------------------------------------
 /// @name Accessing Attributes of the View
@@ -210,12 +210,27 @@
  */
 - (UIColor *)incompleteMarkImageColor;
 
+
 /**
  The custom incomplete mark image for the cell of the day. Default value is `nil`.
  
  @discussion Can be overridden in subclasses for customization.
  */
 - (UIImage *)customIncompleteMarkImage;
+
+/**
+ The color of the mid-completion/intermediatemid-completion/intermediate mark image for the cell of the day. Default value is [UIColor colorWithRed:83/255.0f green:215/255.0f blue:105/255.0f alpha:1.0f].
+ 
+ @discussion Can be overridden in subclasses for customization. Ignored if `customCompleteMarkImage` is not equal to `nil`.
+ */
+- (UIColor *)intermediateMarkImageColor;
+
+/**
+ The custom mid-completion/intermediate mark image for the cell of the day. Default value is `nil`.
+ 
+ @discussion Can be overridden in subclasses for customization.
+ */
+- (UIImage *)customIntermediateMarkImage;
 
 /**
  The color of the complete mark image for the cell of the day. Default value is [UIColor colorWithRed:83/255.0f green:215/255.0f blue:105/255.0f alpha:1.0f].
