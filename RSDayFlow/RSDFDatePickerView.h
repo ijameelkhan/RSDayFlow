@@ -203,6 +203,17 @@
 - (void)datePickerView:(RSDFDatePickerView *)view didSelectDate:(NSDate *)date;
 
 /**
+ Tells the delegate that the user did select a cell.
+ 
+ The date picker view calls this method when the user successfully selects a cell in the date picker view.
+ It does not call this method when you programmatically set the selection.
+ 
+ @param view The view whose date was selected.
+ @param date The selected date.
+ */
+- (void)datePickerView:(RSDFDatePickerView *)view didSelectCellWithRect:(CGRect)cellRect;
+
+/**
  Tells the delegate that the date picker view was scrolled.
  
  The date picker view calls this method when the user scrolls the date picker view

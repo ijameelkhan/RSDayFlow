@@ -764,6 +764,10 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
     if ([self.delegate respondsToSelector:@selector(datePickerView:didSelectDate:)]) {
         [self.delegate datePickerView:self didSelectDate:date];
     }
+    
+    if ([self.delegate respondsToSelector:@selector(datePickerView:didSelectCellWithRect:)]) {
+        [self.delegate datePickerView:self didSelectCellWithRect:cell.bounds];
+    }
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

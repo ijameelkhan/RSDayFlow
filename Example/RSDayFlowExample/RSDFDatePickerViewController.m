@@ -186,7 +186,11 @@
 
 - (void)datePickerView:(RSDFDatePickerView *)view didSelectDate:(NSDate *)date
 {
-    [[[UIAlertView alloc] initWithTitle:@"Picked Date" message:[self.dateFormatter stringFromDate:date] delegate:nil cancelButtonTitle:@":D" otherButtonTitles:nil] show];
+    
+}
+
+- (void)datePickerView:(RSDFDatePickerView *)view didSelectCellWithRect:(CGRect)cellBounds {
+    [[[UIAlertView alloc] initWithTitle:@"Picked Date" message:@"CELL SELECTEd" delegate:nil cancelButtonTitle:@":D" otherButtonTitles:nil] show];
 }
 
 - (void)datePickerView:(RSDFDatePickerView *)view didScrollToMonth:(NSString *)monthName {
