@@ -765,8 +765,10 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
         [self.delegate datePickerView:self didSelectDate:date];
     }
     
-    if ([self.delegate respondsToSelector:@selector(datePickerView:didSelectCellWithRect:)]) {
-        [self.delegate datePickerView:self didSelectCellWithRect:cell.bounds];
+    if ([self.delegate respondsToSelector:@selector(datePickerView:didSelectCell:inCollectionView:)]) {
+//        [self.delegate datePickerView:self didSelectCellWithRect:cell.frame];
+//        [self.delegate datePickerView:self didSelectCellWithRect:[cell convertRect:cell.frame toView:[UIApplication sharedApplication].keyWindow.rootViewController.view]];
+        [self.delegate datePickerView:self didSelectCell:cell inCollectionView:self.collectionView];
     }
 }
 

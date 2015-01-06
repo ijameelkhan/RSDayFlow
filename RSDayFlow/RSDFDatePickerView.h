@@ -24,6 +24,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class RSDFDatePickerCollectionView;
+@class RSDFDatePickerDayCell;
 
 @protocol RSDFDatePickerViewDelegate;
 @protocol RSDFDatePickerViewDataSource;
@@ -211,7 +213,7 @@
  @param view The view whose date was selected.
  @param date The selected date.
  */
-- (void)datePickerView:(RSDFDatePickerView *)view didSelectCellWithRect:(CGRect)cellRect;
+- (void)datePickerView:(RSDFDatePickerView *)view didSelectCell:(RSDFDatePickerDayCell *)cell inCollectionView:(RSDFDatePickerCollectionView *)collectionView;
 
 /**
  Tells the delegate that the date picker view was scrolled.
