@@ -34,6 +34,7 @@
 #import "NSCalendar+RSDFAdditions.h"
 
 static NSString * const RSDFDatePickerViewMonthHeaderIdentifier = @"RSDFDatePickerViewMonthHeaderIdentifier";
+static NSString * const RSDFDatePickerViewMonthFooterIdentifier = @"RSDFDatePickerViewMonthFooterIdentifier";
 static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerViewDayCellIdentifier";
 
 @interface RSDFDatePickerView () <RSDFDatePickerCollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
@@ -183,6 +184,7 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         [_collectionView registerClass:[self monthHeaderClass] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:RSDFDatePickerViewMonthHeaderIdentifier];
+        [_collectionView registerClass:[self monthHeaderClass] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:RSDFDatePickerViewMonthFooterIdentifier];
         [_collectionView registerClass:[self dayCellClass] forCellWithReuseIdentifier:RSDFDatePickerViewDayCellIdentifier];
         [_collectionView reloadData];
         [_collectionView layoutIfNeeded];
@@ -568,9 +570,9 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 
 - (void)scrollToTopOfSection:(NSInteger)section animated:(BOOL)animated
 {
-	CGRect headerRect = [self frameForHeaderForSection:section];
-	CGPoint topOfHeader = CGPointMake(0, headerRect.origin.y - _collectionView.contentInset.top);
-	[_collectionView setContentOffset:topOfHeader animated:animated];
+    CGRect headerRect = [self frameForHeaderForSection:section];
+    CGPoint topOfHeader = CGPointMake(0, headerRect.origin.y - _collectionView.contentInset.top);
+    [_collectionView setContentOffset:topOfHeader animated:animated];
 }
 
 - (CGRect)frameForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -766,8 +768,8 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
     }
     
     if ([self.delegate respondsToSelector:@selector(datePickerView:didSelectCell:inCollectionView:)]) {
-//        [self.delegate datePickerView:self didSelectCellWithRect:cell.frame];
-//        [self.delegate datePickerView:self didSelectCellWithRect:[cell convertRect:cell.frame toView:[UIApplication sharedApplication].keyWindow.rootViewController.view]];
+        //        [self.delegate datePickerView:self didSelectCellWithRect:cell.frame];
+        //        [self.delegate datePickerView:self didSelectCellWithRect:[cell convertRect:cell.frame toView:[UIApplication sharedApplication].keyWindow.rootViewController.view]];
         [self.delegate datePickerView:self didSelectCell:cell inCollectionView:self.collectionView];
     }
 }
