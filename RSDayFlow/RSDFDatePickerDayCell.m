@@ -484,7 +484,15 @@
 
 - (void)performCustomization{
     
+    self.backgroundColor= [self selfBackgroundColor];
+    self.overlayImageView.image= [self customOverlayImage];
     
+}
+
+- (void)prepareForReuse{
+    self.backgroundColor= [UIColor whiteColor];
+    self.taskState= -1;
+    self.overlayImageView.image=nil;
 }
 
 
