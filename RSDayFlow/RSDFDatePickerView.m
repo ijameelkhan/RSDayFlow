@@ -666,6 +666,7 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
     }
     
     [cell setNeedsDisplay];
+    [cell performCustomization];
     
     return cell;
 }

@@ -260,4 +260,19 @@
  */
 - (UIImage *)customDividerImage;
 
+
+
+/**
+ The custom method if any customization by subclass , defaul doesnt do anytyhing`.
+ 
+ @discussion Can be overridden in subclasses for customization.
+ */
+- (void)performCustomization;
+
+ 
+
+
+
+
+
 @end
