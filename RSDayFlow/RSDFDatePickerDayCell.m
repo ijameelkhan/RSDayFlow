@@ -34,6 +34,7 @@
 @property (nonatomic, readonly, strong) UIImageView *overlayImageView;
 @property (nonatomic, readonly, strong) UIImageView *markImageView;
 @property (nonatomic, readonly, strong) UIImageView *dividerImageView;
+@property (nonatomic, readonly, strong) UIImageView *backgroundImageView;
 
 @end
 
@@ -44,6 +45,7 @@
 @synthesize overlayImageView = _overlayImageView;
 @synthesize markImageView = _markImageView;
 @synthesize dividerImageView = _dividerImageView;
+@synthesize backgroundImageView = _backgroundImageView;
 
 #pragma mark - Lifecycle
 
@@ -73,7 +75,9 @@
     [self addSubview:self.overlayImageView];
     [self addSubview:self.markImageView];
     [self addSubview:self.dividerImageView];
+    [self addSubview:self.backgroundImageView];
     [self addSubview:self.dateLabel];
+    
     
     [self updateSubviews];
 }
@@ -111,6 +115,17 @@
         _selectedDayImageView.image = [self selectedDayImage];
     }
     return _selectedDayImageView;
+}
+
+- (UIImageView *)backgroundImageView{
+    
+    if (!_backgroundImageView) {
+        _backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _backgroundImageView.backgroundColor = [UIColor clearColor];
+        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _backgroundImageView.image = [self customBackgroundImage];
+    }
+    return _backgroundImageView;
 }
 
 - (UILabel *)dateLabel
@@ -214,6 +229,8 @@
             self.markImageView.image = [self completeMarkImage];
         }
     }
+    
+
 }
 
 + (NSCache *)imageCache
@@ -363,6 +380,12 @@
     return nil;
 }
 
+
+- (UIImage *)customBackgroundImage{
+    return nil;
+}
+
+
 - (UIImage *)selectedDayImage
 {
     UIImage *selectedDayImage = [self customSelectedDayImage];
@@ -484,15 +507,17 @@
 
 - (void)performCustomization{
     
+
     self.backgroundColor= [self selfBackgroundColor];
-    self.overlayImageView.image= [self customOverlayImage];
+    self.backgroundImageView.image= [self customBackgroundImage];
     
 }
 
 - (void)prepareForReuse{
     self.backgroundColor= [UIColor whiteColor];
     self.taskState= -1;
-    self.overlayImageView.image=nil;
+    self.backgroundImageView.image=nil;
+    
 }
 
 

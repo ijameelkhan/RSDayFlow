@@ -263,6 +263,15 @@
 
 
 /**
+ The custom backgrond image for the cell of the day. Default value is `nil`.
+ 
+ @discussion Can be overridden in subclasses for customization.
+ */
+- (UIImage *)customBackgroundImage;
+
+
+
+/**
  The custom method if any customization by subclass , defaul doesnt do anytyhing`.
  
  @discussion Can be overridden in subclasses for customization.
