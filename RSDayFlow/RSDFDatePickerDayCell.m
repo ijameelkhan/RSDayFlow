@@ -189,7 +189,7 @@
     self.selectedDayImageView.hidden = !self.isSelected || self.isNotThisMonth;
     self.overlayImageView.hidden = !self.isHighlighted || self.isNotThisMonth;
     self.markImageView.hidden = !self.isMarked || self.isNotThisMonth;
-    self.dividerImageView.hidden = self.isNotThisMonth;
+    self.dividerImageView.hidden = NO;
     
     if (self.isNotThisMonth) {
         self.dateLabel.textColor = [self notThisMonthLabelTextColor];
