@@ -76,6 +76,9 @@
  */
 @property (nonatomic, getter = isTaskState) int taskState;
 
+
+
+
 ///---------------------------------------
 /// @name Accessing Attributes of the View
 ///---------------------------------------
@@ -268,6 +271,22 @@
  */
 - (UIImage *)customBackgroundImage;
 
+
+/**
+ 
+ this is used to show the sub number in days
+ 
+ */
+- (NSString *)customDaySubString;
+
+
+
+/**
+ 
+ this is used to show the sub number in days
+ 
+ */
+- (UIColor *)customDaySubStringColor;
 
 
 

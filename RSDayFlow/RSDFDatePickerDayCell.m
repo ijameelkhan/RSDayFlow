@@ -35,6 +35,7 @@
 @property (nonatomic, readonly, strong) UIImageView *markImageView;
 @property (nonatomic, readonly, strong) UIImageView *dividerImageView;
 @property (nonatomic, readonly, strong) UIImageView *customBackgroundImageView;
+@property (nonatomic, readonly, strong) UILabel *subTextLabel;
 
 @end
 
@@ -46,6 +47,8 @@
 @synthesize markImageView = _markImageView;
 @synthesize dividerImageView = _dividerImageView;
 @synthesize customBackgroundImageView= _customBackgroundImageView;
+@synthesize subTextLabel= _subTextLabel;
+
 
 #pragma mark - Lifecycle
 
@@ -77,6 +80,7 @@
     [self addSubview:self.overlayImageView];
     [self addSubview:self.customBackgroundImageView];
     [self addSubview:self.dateLabel];
+    [self addSubview:self.subTextLabel];
     
     [self updateSubviews];
 }
@@ -124,6 +128,18 @@
         _dateLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _dateLabel;
+}
+
+- (UILabel*)subTextLabel{
+    
+    if (!_subTextLabel) {
+        _subTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, CGRectGetHeight(self.bounds)-12, 10, 10)];
+        _subTextLabel.backgroundColor = [UIColor clearColor];
+        _subTextLabel.textAlignment = NSTextAlignmentCenter;
+        _subTextLabel.font= [UIFont systemFontOfSize:8];
+        _subTextLabel.textColor= [self customDaySubStringColor];
+    }
+    return _subTextLabel;
 }
 
 - (UIImageView *)overlayImageView
@@ -189,6 +205,7 @@
     self.overlayImageView.hidden = !self.isHighlighted || self.isNotThisMonth;
     self.markImageView.hidden = !self.isMarked || self.isNotThisMonth;
     self.dividerImageView.hidden = NO;
+    self.subTextLabel.hidden=  self.isNotThisMonth;
     
     if (self.isNotThisMonth) {
         self.dateLabel.textColor = [self notThisMonthLabelTextColor];
@@ -482,6 +499,22 @@
     return nil;
 }
 
+
+- (UIImage *)customBackgroundImage{
+    return nil;
+}
+
+- (NSString *)customDaySubString{
+    
+    return @"";
+}
+
+
+- (UIColor *)customDaySubStringColor{
+ 
+    return [UIColor blackColor];
+}
+
 - (UIImage *)dividerImage
 {
     UIImage *dividerImage = [self customDividerImage];
@@ -500,6 +533,7 @@
     
     self.backgroundColor= [self selfBackgroundColor];
     self.customBackgroundImageView.image= [self customBackgroundImage];
+    self.subTextLabel.text= [self customDaySubString];
     
 }
 
@@ -507,6 +541,7 @@
     self.backgroundColor= [UIColor whiteColor];
     self.taskState= -1;
     self.customBackgroundImageView.image=nil;
+    self.subTextLabel.text=@"";
 }
 
 
