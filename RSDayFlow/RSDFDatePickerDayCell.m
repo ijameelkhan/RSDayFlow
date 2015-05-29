@@ -34,7 +34,7 @@
 @property (nonatomic, readonly, strong) UIImageView *overlayImageView;
 @property (nonatomic, readonly, strong) UIImageView *markImageView;
 @property (nonatomic, readonly, strong) UIImageView *dividerImageView;
-@property (nonatomic, readonly, strong) UIImageView *backgroundImageView;
+@property (nonatomic, readonly, strong) UIImageView *customBackgroundImageView;
 
 @end
 
@@ -45,7 +45,7 @@
 @synthesize overlayImageView = _overlayImageView;
 @synthesize markImageView = _markImageView;
 @synthesize dividerImageView = _dividerImageView;
-@synthesize backgroundImageView = _backgroundImageView;
+@synthesize customBackgroundImageView= _customBackgroundImageView;
 
 #pragma mark - Lifecycle
 
@@ -72,12 +72,11 @@
     self.backgroundColor = [self selfBackgroundColor];
     
     [self addSubview:self.selectedDayImageView];
-    [self addSubview:self.overlayImageView];
     [self addSubview:self.markImageView];
     [self addSubview:self.dividerImageView];
-    [self addSubview:self.backgroundImageView];
+    [self addSubview:self.overlayImageView];
+    [self addSubview:self.customBackgroundImageView];
     [self addSubview:self.dateLabel];
-    
     
     [self updateSubviews];
 }
@@ -117,17 +116,6 @@
     return _selectedDayImageView;
 }
 
-- (UIImageView *)backgroundImageView{
-    
-    if (!_backgroundImageView) {
-        _backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        _backgroundImageView.backgroundColor = [UIColor clearColor];
-        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _backgroundImageView.image = [self customBackgroundImage];
-    }
-    return _backgroundImageView;
-}
-
 - (UILabel *)dateLabel
 {
     if (!_dateLabel) {
@@ -165,6 +153,17 @@
         _markImageView.image = [self incompleteMarkImage];
     }
     return _markImageView;
+}
+
+- (UIImageView *)customBackgroundImageView{
+    if (!_customBackgroundImageView) {
+        _customBackgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _customBackgroundImageView.backgroundColor = [UIColor clearColor];
+        _customBackgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _customBackgroundImageView.image = nil;
+    }
+    return _customBackgroundImageView;
+    
 }
 
 - (CGRect)dividerImageViewFrame
@@ -229,8 +228,6 @@
             self.markImageView.image = [self completeMarkImage];
         }
     }
-    
-
 }
 
 + (NSCache *)imageCache
@@ -380,12 +377,6 @@
     return nil;
 }
 
-
-- (UIImage *)customBackgroundImage{
-    return nil;
-}
-
-
 - (UIImage *)selectedDayImage
 {
     UIImage *selectedDayImage = [self customSelectedDayImage];
@@ -507,17 +498,15 @@
 
 - (void)performCustomization{
     
-
     self.backgroundColor= [self selfBackgroundColor];
-    self.backgroundImageView.image= [self customBackgroundImage];
+    self.customBackgroundImageView.image= [self customBackgroundImage];
     
 }
 
 - (void)prepareForReuse{
     self.backgroundColor= [UIColor whiteColor];
     self.taskState= -1;
-    self.backgroundImageView.image=nil;
-    
+    self.customBackgroundImageView.image=nil;
 }
 
 

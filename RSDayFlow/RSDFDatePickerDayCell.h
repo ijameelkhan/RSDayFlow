@@ -261,13 +261,13 @@
 - (UIImage *)customDividerImage;
 
 
-
 /**
- The custom backgrond image for the cell of the day. Default value is `nil`.
+ The custom divider image for the cell of the day. Default value is `nil`.
  
  @discussion Can be overridden in subclasses for customization.
  */
 - (UIImage *)customBackgroundImage;
+
 
 
 
